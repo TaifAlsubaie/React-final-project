@@ -1,15 +1,24 @@
 pipeline{
     agent any
-    stages{
-        
-        stage('Build'){
-            steps{
-               sh 'mvn clean package -DskipTests'
+    tools {
+        nodejs 'node' 
+    }
+
+    stages {
+        stage('Install & Build') {
+            steps {
+                echo 'Installing dependencies and building React app...'
+               
+                sh 'npm install'
+                sh 'npm run build'
             }
         }
-         stage('Test'){
-            steps{
-                sh 'mvn test'
+
+        stage('Test') {
+            steps {
+                echo 'Running React tests...'
+                
+                sh 'CI=true npm test'
             }
         }
 
