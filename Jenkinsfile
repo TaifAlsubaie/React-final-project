@@ -4,24 +4,24 @@ pipeline{
         nodejs 'node' 
     }
 
-    stages {
-        stage('Install & Build') {
-            steps {
-                echo 'Installing dependencies and building React app...'
-               
-                sh 'npm install'
-                sh 'CI=false npm run build'
-                
-            }
+   stages {
+    stage('Install & Build') {
+        steps {
+            echo 'Installing dependencies and building React app...'
+            sh 'npm install'
+            sh 'CI=false npm run build'
         }
+    }
 
-        stage('Test') {
-            steps {
-                echo 'Running React tests...'
-                
-                sh 'CI=true npm test'
-            }
+    stage('Test') {
+        steps {
+            echo 'Running React tests...'
+            sh 'npm install react-router-dom'
+            sh 'CI=true npm test -- --watchAll=false'
         }
+    }
+}
+
 
         stage('Build & Push Docker Image'){
             steps{
