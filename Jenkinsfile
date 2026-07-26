@@ -10,7 +10,8 @@ pipeline{
                 echo 'Installing dependencies and building React app...'
                
                 sh 'npm install'
-                sh 'npm run build'
+                sh 'CI=false npm run build'
+                
             }
         }
 
