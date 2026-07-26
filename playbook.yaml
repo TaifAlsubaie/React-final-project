@@ -44,5 +44,5 @@
         state: started
         recreate: true
         published_ports:
-          - "8085:8080"
+          - "8085:80"
 
