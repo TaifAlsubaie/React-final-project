@@ -21,7 +21,6 @@
         push: true
         source: local
 
----
 - name: Deploy to docker
   hosts: docker_servers
   become: true
