@@ -14,12 +14,12 @@ pipeline {
             }
         }
 
-        stage('Test') {
+       stage('Test') {
             steps {
                 echo 'Running React tests...'
-                sh 'npm install react-router-dom'
+                sh 'npm install react-router react-router-dom'
                 sh 'CI=true npm test -- --watchAll=false'
-            }
+            }    
         }
 
         stage('Build & Push Docker Image') {
