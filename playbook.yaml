@@ -1,0 +1,59 @@
+---
+- name: Delivery
+  hosts: localhost
+  tags: delivery 
+  vars:
+    
+    image_tag: "latest" 
+  tasks:
+    - name: Login to Docker Hub
+      community.docker.docker_login:
+        username: "{{ docker_username }}"
+        password: "{{ docker_password }}"
+
+    - name: Build Docker Image
+      community.docker.docker_image:
+        name: "taifalsubaie/react-test:{{ image_tag }}"
+        source: build
+        build:
+          path: .
+
+    - name: Push Docker Image -> docker hub
+      community.docker.docker_image:
+        name: "taifalsubaie/react-test:{{ image_tag }}"
+        push: true
+        source: local
+
+    
+    - name: Tag and Push Docker Image -> nexus
+      community.docker.docker_image:
+        name: "taifalsubaie/react-test:{{ image_tag }}"
+        repository: "13.39.159.112:8082/react-test:{{ image_tag }}"
+        push: true
+        source: local
+
+- name: Deploy to docker
+  hosts: docker_servers
+  become: true
+  tags: deploy 
+  vars:
+    image_tag: "latest"
+  tasks:
+    - name: Pull an image
+      community.docker.docker_image:
+        name: "taifalsubaie/react-test:{{ image_tag }}"
+        source: pull
+
+    - name: Remove old container
+      community.docker.docker_container:
+        name: react-test
+        state: absent
+
+    - name: Run container
+      community.docker.docker_container:
+        name: react-test
+        image: "taifalsubaie/react-test:{{ image_tag }}"
+        state: started
+        recreate: true
+        published_ports:
+          - "8086:80"
