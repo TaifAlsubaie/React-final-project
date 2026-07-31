@@ -13,22 +13,22 @@
 
     - name: Build Docker Image
       community.docker.docker_image:
-        name: "taifalsubaie/react-test:{{ image_tag }}"
+        name: "taifalsubaie/react-test:{{ build_version }}"
         source: build
         build:
           path: .
 
     - name: Push Docker Image -> docker hub
       community.docker.docker_image:
-        name: "taifalsubaie/react-test:{{ image_tag }}"
+        name: "taifalsubaie/react-test:{{ build_version }}"
         push: true
         source: local
 
     
     - name: Tag and Push Docker Image -> nexus
       community.docker.docker_image:
-        name: "taifalsubaie/react-test:{{ image_tag }}"
-        repository: "13.39.159.112:8082/react-test:{{ image_tag }}"
+        name: "taifalsubaie/react-test:{{ build_version }}"
+        repository: "13.39.159.112:8082/react-test:{{ build_version }}"
         push: true
         source: local
 
@@ -41,7 +41,7 @@
   tasks:
     - name: Pull an image
       community.docker.docker_image:
-        name: "taifalsubaie/react-test:{{ image_tag }}"
+        name: "taifalsubaie/react-test:{{ build_version }}"
         source: pull
 
     - name: Remove old container
@@ -52,7 +52,7 @@
     - name: Run container
       community.docker.docker_container:
         name: react-test
-        image: "taifalsubaie/react-test:{{ image_tag }}"
+        image: "taifalsubaie/react-test:{{ build_version }}"
         state: started
         recreate: true
         published_ports:
