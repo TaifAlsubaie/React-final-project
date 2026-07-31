@@ -25,12 +25,14 @@
         source: local
 
     
-    - name: Tag and Push Docker Image -> nexus
+        - name: Tag and Push Docker Image -> nexus
       community.docker.docker_image:
-        name: "admin/react-test:{{ build_version }}"
-        repository: "13.39.159.112:8081/react-test:{{ build_version }}"
+        name: "taifalsubaie/react-test:{{ build_version }}" 
+        repository: "13.39.159.112:8081/react-test"     
+        tag: "{{ image_tag }}"                           
         push: true
         source: local
+
 
 - name: Deploy to docker
   hosts: docker_servers
