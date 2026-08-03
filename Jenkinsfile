@@ -6,17 +6,17 @@ pipeline {
     }
 
     stages {
-        stage('Install & Build') {
+        stage(' Build') {
             steps {
-                echo 'Installing dependencies and building React app...'
+                
                 sh 'npm install'
-                //sh 'CI=false npm run build'
+        
             }
         }
 
         stage('Test') {
             steps {
-                sh 'npm test -- --watchAll=false || true' 
+                sh 'npm test ' 
             }
         }
 
