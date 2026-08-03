@@ -22,7 +22,7 @@
         source: local
 
    - name: Tag and Push Docker Image -> nexus
-     community.docker.docker_image:
+      community.docker.docker_image:
         name: "taifalsubaie/test2:{{ build_version }}" 
         repository: "35.181.65.18:8082/react-test"  
         tag: "{{ build_version }}"
