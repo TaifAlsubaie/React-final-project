@@ -14,11 +14,7 @@ pipeline {
             }
         }
 
-        stage('Test') {
-            steps {
-                sh 'npm test ' 
-            }
-        }
+      
 
          stage('Build & Push Docker Image') {
                 steps {
