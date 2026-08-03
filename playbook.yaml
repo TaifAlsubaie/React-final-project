@@ -24,7 +24,7 @@
     - name: Tag and Push Docker Image -> nexus
       community.docker.docker_image:
         name: "taifalsubaie/test2:{{ build_version }}"
-        repository: "35.181.65.18:8082/react"
+        repository: "35.181.65.18:8081/react"
         tag: "{{ build_version }}"
         push: true
         source: local
