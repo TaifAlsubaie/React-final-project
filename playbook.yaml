@@ -10,14 +10,14 @@
 
     - name: Build Docker Image
       community.docker.docker_image:
-        name: "taifalsubaie/react-test:{{ build_version }}"
+        name: "taifalsubaie/test2:{{ build_version }}"
         source: build
         build:
           path: .
 
     - name: Push Docker Image -> docker hub
       community.docker.docker_image:
-        name: "taifalsubaie/react-test:{{ build_version }}"
+        name: "taifalsubaie/test2:{{ build_version }}"
         push: true
         source: local
 
@@ -36,7 +36,7 @@
   tasks:
     - name: Pull an image
       community.docker.docker_image:
-        name: "taifalsubaie/react-test:{{ build_version }}"
+        name: "taifalsubaie/test2:{{ build_version }}"
         source: pull
 
     - name: Remove old container
@@ -47,7 +47,7 @@
     - name: Run container
       community.docker.docker_container:
         name: react-test
-        image: "taifalsubaie/react-test:{{ build_version }}"
+        image: "taifalsubaie/test2:{{ build_version }}"
         state: started
         recreate: true
         published_ports:
